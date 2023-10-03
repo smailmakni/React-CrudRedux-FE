@@ -144,10 +144,10 @@ return rejectWithValue(error.message);
         state.error = null
         state.article=action.payload;
         })
-        .addCase(fetchArticleById.rejected,(state,action)=>{
-            state.isLoading=false
-            state.error=action.payload
-        })
+        .addCase(findArticleByID.rejected, (state, action) => {
+            state.isLoading=false;
+            state.error=action.payload;
+            })
     }
 })
 
