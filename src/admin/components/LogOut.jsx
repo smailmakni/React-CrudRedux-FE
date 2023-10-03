@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import { useNavigate} from 'react-router-dom'
 import { useDispatch} from "react-redux";
-import { logout, reset } from "../../features/AuthSlice";
+import { login, logout, reset } from "../../features/AuthSlice";
 import { authSlice } from '../../features/AuthSlice';
 import { useSelector } from 'react-redux';
 
@@ -11,8 +11,11 @@ const navigate = useNavigate();
 const { user } = useSelector((state) => state.auth) 
 
 useEffect(() => {
-dispatch(logout())
-}, [user]);
+    dispatch(logout())
+    .then(() => {
+    navigate("/login");
+    });
+    }, []);
 return (
 <div>
 </div>

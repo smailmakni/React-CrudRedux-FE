@@ -25,7 +25,7 @@ return thunkAPI.rejectWithValue();
 }});
 export const logout = createAsyncThunk("auth/logout", () => {
 localStorage.removeItem("CC_Token");
-localStorage.removeItem("refresh_token");
+
 });
 export const authSlice = createSlice({
 name: "auth",
@@ -82,12 +82,13 @@ title: 'Connection was successful',
 })
 localStorage.setItem("CC_Token",action.payload.token);
 localStorage.setItem("refresh_token",action.payload.refreshToken);
-console.log( localStorage.getItem("CC_Token"))
+
 })
 
 .addCase(login.rejected, (state, action) => {
 state.isLoggedIn = false;
 state.user = null;
+state.isSuccess=false;
 MySwal.fire({
     icon: 'error',
     title: 'Connection was refused',

@@ -17,6 +17,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
+
 function Copyright(props) {
 return (
 <Typography variant="body2" color="text.secondary" align="center"
@@ -34,7 +35,7 @@ const theme = createTheme();
 export default function Login() {
 const navigate = useNavigate();
 const dispatch = useDispatch();
-const {isLoggedIn} = useSelector((state) => state.auth);
+const {isLoggedIn,user} = useSelector((state) => state.auth);
 const[email,setEmail]=useState('');
 const[password,setPassword]=useState('');
 const handleSubmit=(event)=>{
@@ -45,10 +46,13 @@ password :password
 };
 dispatch(login(objetuser)) ;
 }
-if(isLoggedIn){
-
-navigate("/home");
-}
+useEffect(() => {
+if(isLoggedIn && user.role==="admin"){
+    navigate("/menu");
+    }else if(isLoggedIn && user.role==="user"){
+        navigate("/cart");
+    }
+}, [navigate, isLoggedIn])
 
 return (
 <ThemeProvider theme={theme}>

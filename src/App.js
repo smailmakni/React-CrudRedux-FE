@@ -11,24 +11,33 @@ import Logout from "./admin/components/LogOut"
 import Register from "./admin/components/Register"
 import Login from './admin/components/Login';
 import { useSelector } from "react-redux";
+import ProtectedRoutes from './admin/components/ProtectedRoutes';
+import PublicRoutes from "./admin/components/PublicRoutes";
+import Dashboard from './admin/components/Dashboard';
+import  Menus from './admin/components/Menus';
 
 
 
 function App() {
-  const { isLoggedIn } = useSelector((state) => state.auth)
   return (
      <Router>
-    {isLoggedIn? <Navscroll /> :<Login/> }
-   
     <Routes>
-    <Route path='/home' element={<Navscroll/>}/>
+    <Route element={<ProtectedRoutes/>}>
+    <Route path="/dashboard" element={<Dashboard/>}/>
+    <Route path='/' element={<Navscroll/>}/>
     <Route path='/articles/getArticles' element={<ListArticles/>}/>
     <Route path='/scategories/getScategories' element={<ListScategories/>}/>
     <Route path='/adminArticles' element={<ProductsAppAdmin/>}/>
-    <Route path='/cart' element={<Cart/>}/>
+    <Route path='/menu' element={<Menus/>}/>
+    
+    </Route>
+    <Route element={<PublicRoutes/>}>
+      
     <Route path='/pay/:total' element={<StripePayement/>}/>
-    <Route path="/login" element={<Login/>}/>
+    <Route path='/cart' element={<Cart/>}/>
+    </Route>
     <Route path="/logout" element={<Logout/>}/>
+    <Route path="/login" element={<Login/>}/>
     <Route path="/register" element={<Register/>}/>
     <Route path="*" element={<p>Page Not Found: 404!</p>} />
     </Routes>
